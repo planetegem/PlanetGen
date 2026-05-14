@@ -1,0 +1,60 @@
+aside.customization-bar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+
+    border-left: 2px solid black;
+    padding-left: 2px;
+    background-color: yellow;
+
+    & section.customizer-container {
+        background-color: white;
+        border-left: 2px solid black;
+        height: 100%;
+        padding: 2em;
+        position: relative;
+    }
+}
+#close-customizer {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    z-index: 5;
+}
+aside.customization-bar.opened {
+    transform: translateX(0);
+}
+
+figure.logo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-size: 3.2em;
+    margin-bottom: 2em;
+
+
+    & img {
+        max-width: 30%;
+        margin: auto;
+    }
+
+    & h1 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+        font-weight: 700;
+        line-height: 0.75em;
+        -webkit-text-stroke: 1px white;
+        transform: translateY(0.45em);
+
+        & small {
+            font-size: 0.6em;
+        }
+    }
+}

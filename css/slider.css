@@ -1,0 +1,110 @@
+/* Remove default style */
+input[type="range"] {
+    appearance: none;
+    cursor: pointer;
+    background: transparent;
+    width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]::-moz-range-thumb {
+    appearance: none;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/* Track */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.75em;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px black;
+    background: linear-gradient(to right, var(--main-color) 0%, var(--main-color) var(--range-value, 50%), var(--off-white) var(--range-value, 50%), var(--off-white) 100%);
+    border-radius: 0.25em;
+    border: 1px solid black;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 0.75em;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px black;
+    background: linear-gradient(to right, var(--main-color) 0%, var(--main-color) var(--range-value, 50%), var(--off-white) var(--range-value, 50%), var(--off-white) 100%);
+    border-radius: 0.25em;
+    border: 1px solid black;
+}
+
+/* Thumb */
+input[type=range]::-webkit-slider-thumb {
+    border: 1px solid black;
+    height: 2em;
+    width: 1em;
+    border-radius: 0.25em;
+    background: var(--main-color);
+    cursor: pointer;
+    box-shadow: 1px 1px 1px black;
+    margin-top: -0.625em
+}
+
+input[type=range]::-moz-range-thumb {
+    border: 1px solid black;
+    height: 2em;
+    width: 1em;
+    border-radius: 0.25em;
+    background: var(--main-color);
+    cursor: pointer;
+    box-shadow: 1px 1px 1px black;
+}
+
+/* Focus */
+input[type="range"]:focus::-webkit-slider-thumb {
+    border: 1px solid black;
+    outline: 3px solid var(--dark-main-color);
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    border: 1px solid black;
+    outline: 3px solid var(--dark-main-color);
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+    border: 2px solid var(--dark-main-color);
+}
+
+input[type="range"]:focus::-moz-range-track {
+    border: 2px solid var(--dark-main-color);
+}
+
+/* Element layout */
+div.slider-container {
+    border: solid 1px var(--border-grey);
+    box-shadow: 1px 1px 1px var(--border-grey);
+    border-radius: 0.5em;
+    padding: 1.25em 1em;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: center;
+
+    & label {
+        position: absolute;
+        top: 0;
+        left: 2em;
+        font-size: 0.9em;
+        transform: translateY(-0.5em);
+        line-height: 1;
+        padding: 0 0.5em;
+        background-color: white;
+    }
+
+    & span {
+        width: max-content;
+        font-size: 0.8em;
+        margin-left: 1.25em
+    }
+}

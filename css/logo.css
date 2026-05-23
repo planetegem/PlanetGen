@@ -1,0 +1,31 @@
+figure.logo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-size: 3.2em;
+    margin: auto;
+
+    & img {
+        max-width: 30%;
+        margin: auto;
+    }
+
+    & h1, span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+        font-weight: 700;
+        line-height: 0.75em;
+        -webkit-text-stroke: 1px white;
+        transform: translateY(0.45em);
+        padding-bottom: 0.45em;
+
+        & small {
+            font-size: 0.6em;
+        }
+    }
+}

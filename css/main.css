@@ -1,19 +1,21 @@
-
-
 body {
     position: relative;
     height: 100dvh;
-
-
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
 }
 
+@media only screen and (min-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
 
-
-main {
+main.background {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -42,6 +44,7 @@ nav.interaction-bar {
     grid-template-rows: auto;
     justify-content: stretch;
     gap: 1em;
+    justify-content: start;
 }
 
 #animation-toggle.playing #play-icon,
@@ -62,11 +65,3 @@ button.icon-button {
 button.icon-button:hover {
     cursor: pointer;
 }
-
-#open-customizer {
-    justify-self: end;
-    margin-left: auto;
-}
-
-
-

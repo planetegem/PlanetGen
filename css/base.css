@@ -6,13 +6,14 @@ body {
 
 button,
 figure,
-h1 {
+h1, h2,  p {
     all: unset;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    position: relative;
 }
 
 :root {
@@ -20,4 +21,16 @@ body {
     --dark-main-color: rgb(100, 100, 0);
     --off-white: rgb(238, 238, 238);
     --border-grey: rgb(197, 197, 197);
+}
+
+/* Disappear elements on mobile */
+@media only screen and (max-width: 768px) {
+    .desktop {
+        display: none !important;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .mobile {
+        display: none !important;
+    }
 }

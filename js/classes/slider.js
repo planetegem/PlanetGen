@@ -7,7 +7,23 @@ export default class Slider {
     // Actions
     setter;
 
-    constructor(id, name, setter, defaultValue = 50) {
+    // Set values of slider
+    setValues(defaultValue = 50, min = 0, max = 100) {
+        this.input.setAttribute("min", min);
+        this.input.setAttribute("max", max);
+        this.input.value = defaultValue;
+        this.updateUIState();
+    }
+
+    // Update UI state of slider
+    updateUIState() {
+        const value = (this.input.value - this.input.min) / (this.input.max - this.input.min) * 100;
+        this.input.style.setProperty('--range-value', value + '%');
+        this.result.innerText = this.setter(this.input.value).toFixed(2);
+    }
+
+    // Constructor: fill div with html elements & set event listeners
+    constructor(id, setter) {
         // Setter and getter hold link with controller
         this.setter = setter;
 
@@ -18,7 +34,8 @@ export default class Slider {
 
         // 2. Add label
         const label = document.createElement("label");
-        label.innerText = name;
+        label.innerText = this.container.innerText;
+        this.container.innerText = "";
         this.container.appendChild(label);
 
         // 3. Add range input (slider)
@@ -26,7 +43,7 @@ export default class Slider {
         this.input.setAttribute("type", "range");
         this.input.setAttribute("min", "0");
         this.input.setAttribute("max", "100");
-        this.input.value = defaultValue;
+        this.input.value = 50;
         this.container.appendChild(this.input);
 
         // 4. Add numerical result
@@ -35,16 +52,7 @@ export default class Slider {
 
         // Event listener: act when slider is moved
         // change UI state of slider; call setter; show setter response as result
-        this.input.addEventListener("input", (e) => {
-            const value = (e.target.value - e.target.min) / (e.target.max - e.target.min) * 100;
-            e.target.style.setProperty('--range-value', value + '%');
-            this.result.innerText = this.setter(e.target.value).toFixed(2);
-        });
-
-        // Default value of slider
-        // Use getter to get default value; do same steps as for event listener
-        const value = (this.input.value - this.input.min) / (this.input.max - this.input.min) * 100;
-        this.input.style.setProperty('--range-value', value + '%');
-        this.result.innerText = this.setter(this.input.value).toFixed(2);
+        this.input.addEventListener("input", (e) => this.updateUIState());
+        this.updateUIState();
     }
 }

@@ -1,60 +1,139 @@
+/* Actual customization bar */
 aside.customization-bar {
     display: flex;
     flex-direction: column;
+}
+
+.customizer-container {
+    background-color: white;
     height: 100%;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out;
+    max-height: 100%;
+    padding: 2em;
+    position: relative;
+    display: grid;
+    overflow-y: hidden;
+    gap: 3em;
+    scrollbar-gutter: stable;
 
-    border-left: 2px solid black;
-    padding-left: 2px;
-    background-color: yellow;
+    &>header {
+        font-size: 0.85;
+        width: 60%;
+        margin: auto;
+    }
 
-    & section.customizer-container {
-        background-color: white;
-        border-left: 2px solid black;
-        height: 100%;
-        padding: 2em;
-        position: relative;
+    &>footer {
+        text-align: center;
+        font-size: 0.9em;
+
+        & a {
+            color: black;
+        }
     }
 }
-#close-customizer {
+
+aside.customization-bar {
+    border-top: 2px solid black;
+    padding-top: 2px;
+    background-color: yellow;
+
+    & .customizer-container {
+        border-top: 2px solid black;
+    }
+}
+
+
+/* open & close animation */
+#close-customizer,
+#open-customizer,
+#toggle-customizer {
     position: absolute;
     top: 1em;
     right: 1em;
-    z-index: 5;
-}
-aside.customization-bar.opened {
-    transform: translateX(0);
 }
 
-figure.logo {
+aside.customization-bar {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    font-size: 3.2em;
-    margin-bottom: 2em;
+    box-sizing: border-box;
+    height: 20%;
+    transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
+}
 
+body.opened #close-mobile-customizer,
+body:not(.opened) #open-mobile-customizer {
+    display: none;
+}
 
-    & img {
-        max-width: 30%;
-        margin: auto;
+body:not(.opened) aside.customization-bar {
+    height: calc(100vh + 4px);
+    transform: translateY(-4px);
+
+    & .customizer-container {
+        overflow-y: scroll;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+    /* Animation on non-mobile */
+    aside.customization-bar {
+        width: 40%;
+        height: 100%;
+        transform: translateX(100%);
     }
 
-    & h1 {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        text-align: center;
-        font-weight: 700;
-        line-height: 0.75em;
-        -webkit-text-stroke: 1px white;
-        transform: translateY(0.45em);
+    body.opened {
+        aside.customization-bar {
+            transform: translateX(0);
+        }
+    }
 
-        & small {
-            font-size: 0.6em;
+    /* Styling: lose top border, add left border */
+    aside.customization-bar {
+        border-left: 2px solid black;
+        border-top: none;
+        padding-left: 2px;
+        padding-top: 0;
+
+        & .customizer-container {
+            height: 100%;
+            border-left: 2px solid black;
+            border-top: none;
+            overflow-y: scroll;
+
+            &>header {
+                width: 100%;
+                font-size: 0.9em;
+            }
+        }
+    }
+
+
+
+    /* Optionally center background when menu is opened */
+    body.centered #align-center-icon,
+    body:not(.centered) #cancel-align-center-icon {
+        display: none;
+    }
+
+    main.background {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    body.opened.centered {
+        main.background {
+            transform: translateX(-15%);
+        }
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    aside.customization-bar {
+        width: 30%;
+
+        & .customizer-container {
+            &>header {
+                font-size: 1em;
+            }
         }
     }
 }

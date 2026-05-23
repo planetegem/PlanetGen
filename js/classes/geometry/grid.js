@@ -25,39 +25,52 @@ export default class Grid {
 
     // TERRAIN GENERATION PARAMETERS
     // Max variation says how much a point can vary compared to neighbouring points
-    _maxVariation = 0.00;
+    set terrainVariation(value){
+        this._maxVariation = value / 400;
+    }
+    get terrainVariation(){
+        return this._maxVariation;
+    }
+    _maxVariation = 0.2;
+
     // Lower and upper limits
-    _lowerLimitVariation = -0.85;
-    _upperLimitVariation = -0.2;
+    set elevationLimit(value) {
+        this._lowerLimitVariation = -value / 100;
+    }
+    get elevationLimit() {
+        return Math.abs(this._lowerLimitVariation);
+    }
+    _lowerLimitVariation = -0.5;
+    _upperLimitVariation = 0;
 
     // CREATE ROW
     // Takes another row as optional parameter to compare against (to create logically flowing terrain)
     createRow(compareToRow = []) {
         let row = [];
         for (let i = 0; i < this.numberOfColumns; i++) {
-            let x = 0, y = 0;
+            let x = 0, y = 0, z = 0;
             if (compareToRow.length === 0) {
                 if (i === 0) {
-                    y = this.randomCoord(this._lowerLimitVariation, this._upperLimitVariation);
+                    z = this.randomCoord(this._lowerLimitVariation, this._upperLimitVariation);
                 } else {
-                    let proposedY = this.randomCoord(row[i - 1].y - this._maxVariation, row[i - 1].y + this._maxVariation);
-                    y = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedY));
+                    let proposedZ = this.randomCoord(row[i - 1].z - this._maxVariation, row[i - 1].z + this._maxVariation);
+                    z = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedZ));
                 }
 
             } else {
                 if (i === 0) {
                     let proposal1 = this.randomCoord(this._lowerLimitVariation, this._upperLimitVariation);
-                    let proposal2 = this.randomCoord(compareToRow[i].y - this._maxVariation, compareToRow[i].y + this._maxVariation);
-                    let proposedY = (proposal1 + proposal2) * 0.5;
-                    y = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedY));
+                    let proposal2 = this.randomCoord(compareToRow[i].z - this._maxVariation, compareToRow[i].z + this._maxVariation);
+                    let proposedZ = (proposal1 + proposal2) * 0.5;
+                    z = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedZ));
                 } else {
-                    let proposal1 = this.randomCoord(compareToRow[i].y - this._maxVariation, compareToRow[i].y + this._maxVariation);
-                    let proposal2 = this.randomCoord(row[i - 1].y - this._maxVariation, row[i - 1].y + this._maxVariation);
-                    let proposedY = (proposal1 + proposal2) * 0.5;
-                    y = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedY));
+                    let proposal1 = this.randomCoord(compareToRow[i].z - this._maxVariation, compareToRow[i].z + this._maxVariation);
+                    let proposal2 = this.randomCoord(row[i - 1].z - this._maxVariation, row[i - 1].z + this._maxVariation);
+                    let proposedZ = (proposal1 + proposal2) * 0.5;
+                    z = Math.min(this._upperLimitVariation, Math.max(this._lowerLimitVariation, proposedZ));
                 }
             }
-            row.push(new Point(x, y));
+            row.push(new Point(x, y, z));
         }
         return row;
     }

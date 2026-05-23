@@ -1,0 +1,33 @@
+.tooltip-container {
+    position: absolute;
+    max-width: 40vw;
+    display: none;
+    cursor: help;
+
+    text-align: center;
+    background-color: yellow;
+    border: 2px black solid;
+    border-radius: 0.25em;
+    padding: 2px;
+
+    & > .tooltip-content {
+        border: 2px black solid;
+        border-radius: 0.25em;
+        background-color: white;
+        padding: 1em;
+    }
+}
+span.tooltip {
+    height: 1em; width: 1em;
+
+    & > svg {
+        height: 100%; width: 100%;
+    }
+}
+span.tooltip:hover {
+    cursor: help;
+
+    & .tooltip-content {
+        display: block;
+    }
+}

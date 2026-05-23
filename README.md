@@ -7,3 +7,6 @@ This is a fake 3D terrain generator, originally built for the background of [pla
 - The Background class extends the Projection class, and provides the logic to draw the projection in a canvas. Calling the constructor of the Background class (takes a canvas id as parameter) is how you get started.
 - There are several hooks to modify parameters: take a look at the Controller class to see how to use them.
 - Use the offset property to animate the background: this one loops between 0 and 1 and determines when new rows need to be added to the grid.
+
+## Live version
+For a demo, visit the [Planetegem PlanetGen](https://github.com/planetegem/PlanetGen/).

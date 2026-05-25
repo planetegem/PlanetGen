@@ -109,7 +109,7 @@
             <h2>Grid Modifiers</h2>
             <span class="tooltip desktop">
               <?= file_get_contents(('resources/info_icon.svg')) ?>
-              <div class="tooltip-content">
+              <div class="tooltip-content" style="display:none;">
                 <p>
                   Modify the level of detail (number of points) in the grid.
                   Moving this slider will cause the grid the be completely regenerated.
@@ -126,7 +126,7 @@
             <h2>Terrain modifiers</h2>
             <span class="tooltip desktop">
               <?= file_get_contents(('resources/info_icon.svg')) ?>
-              <div class="tooltip-content">
+              <div class="tooltip-content" style="display:none;">
                 <p>
                   Modify the maximum amount of variation in terrain (how quickly does terrain alter)
                   and the limit of elevation (maximum height reached) to achieve dramatic scenery.
@@ -146,7 +146,7 @@
             <h2>Projection modifiers</h2>
             <span class="tooltip desktop">
               <?= file_get_contents(('resources/info_icon.svg')) ?>
-              <div class="tooltip-content">
+              <div class="tooltip-content" style="display:none;">
                 <p>
                   Modify the way the 3D terrain is projected.
                   Horizontal convergence decides how much wider things become when closer to the viewpoint.
@@ -166,7 +166,7 @@
             <h2>Horizon modifiers</h2>
             <span class="tooltip desktop">
               <?= file_get_contents(('resources/info_icon.svg')) ?>
-              <div class="tooltip-content">
+              <div class="tooltip-content" style="display:none;">
                 <p>
                   Modify the shape and location of the horizon:
                   horizon height determines where the horizon is (0 = bottom of the screen),

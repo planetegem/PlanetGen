@@ -8,7 +8,9 @@ export default class Tooltip {
         // Wrap container around tooltip for styling
         this.body = document.createElement("div");
         this.body.classList.add("tooltip-container");
-        this.body.appendChild(element.querySelector(".tooltip-content"));
+        let tooltip = element.querySelector(".tooltip-content");
+        this.body.appendChild(tooltip);
+        tooltip.style.display = "block";
         
         // Attach tool tip to document body (to bypass any overflow limits) 
         document.getElementById("tooltips").appendChild(this.body);

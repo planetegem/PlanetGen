@@ -106,21 +106,36 @@
       <main>
         <section class="slider-group">
           <header>
-            <h2>Terrain modifiers</h2>
+            <h2>Grid Modifiers</h2>
             <span class="tooltip desktop">
               <?= file_get_contents(('resources/info_icon.svg')) ?>
               <div class="tooltip-content">
                 <p>
-                  Modify the level of detail (number of points),
-                  terrain variation (maximum change in elevation between points)
-                  and elevation limit (maximum elevation a point can reach).
-                  Change any of these sliders will result in a complete regeneration of the grid.
+                  Modify the level of detail (number of points) in the grid.
+                  Moving this slider will cause the grid the be completely regenerated.
                 </p>
               </div>
             </span>
           </header>
           <main>
             <div id="grid-size">level of detail</div>
+          </main>
+        </section>
+        <section class="slider-group">
+          <header>
+            <h2>Terrain modifiers</h2>
+            <span class="tooltip desktop">
+              <?= file_get_contents(('resources/info_icon.svg')) ?>
+              <div class="tooltip-content">
+                <p>
+                  Modify the maximum amount of variation in terrain (how quickly does terrain alter)
+                  and the limit of elevation (maximum height reached) to achieve dramatic scenery.
+                  Will only impact new rows created in the grid, so turn animation on to see a difference.
+                </p>
+              </div>
+            </span>
+          </header>
+          <main>
             <div id="terrain-variation">terrain variation</div>
             <div id="elevation-limit">terrain elevation</div>
           </main>

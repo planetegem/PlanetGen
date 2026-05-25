@@ -59,18 +59,17 @@ export default class Background extends Projection {
         const rect = this._canvas.getBoundingClientRect();
         const cssWidth = rect.width; const cssHeight = rect.height;
 
-        if (this._canvas.width != cssWidth || this._canvas.height != cssHeight) {
-            this._canvas.width = cssWidth;
-            this._width = cssWidth;
-            this._canvas.height = cssHeight;
-            this._height = cssHeight;
+        this._canvas.width = cssWidth;
+        this._width = cssWidth;
+        this._canvas.height = cssHeight;
+        this._height = cssHeight;
 
-            let screenRatio = (cssHeight / cssWidth);
+        let screenRatio = (cssHeight / cssWidth);
 
-            let columns = this._size, rows = Math.round((columns * screenRatio) * 0.5) * 2;
-            this._grid = this.generateGrid(rows, columns);
-            this.draw();
-        }
+        let columns = this._size, rows = Math.round((columns * screenRatio) * 0.5) * 2;
+        this._grid = this.generateGrid(rows, columns);
+        this.draw();
+
     }
 
     // Draw function: draws to the canvas
@@ -89,15 +88,16 @@ export default class Background extends Projection {
 
             // Create the actual grid
             for (let i = 0; i < projection.length; i++) {
-            
+
                 // Start by creating a polygon to be filled
                 for (let j = 0; j < projection[i].length; j++) {
 
                     if (j === projection[i].length - 1) continue;
 
-                    let topLeftPoint = (i === 0) ? horizon[j] : projection[i][j], 
+
+                    let topLeftPoint = (i === 0) ? horizon[j] : projection[i][j],
                         topRightPoint = (i === 0) ? horizon[j + 1] : projection[i][j + 1];
-                    
+
                     ctx.beginPath();
                     ctx.moveTo(topLeftPoint.x * this._width, topLeftPoint.y * this._height);
                     ctx.lineTo(topRightPoint.x * this._width, topRightPoint.y * this._height);
@@ -111,30 +111,7 @@ export default class Background extends Projection {
                     }
                     ctx.fill();
                     ctx.stroke();
-
                 }
-
-                // Next make a new path for the stroke
-                // Horizontal line first
-                ctx.beginPath();
-                for (let j = 0; j < projection[i].length; j++) {
-                    let point = (i === 0) ? horizon[j] : projection[i][j];
-                    if (j === 0) {
-                        ctx.moveTo(point.x * this._width, point.y * this._height);
-                    } else {
-                        ctx.lineTo(point.x * this._width, point.y * this._height);
-                    }
-                }
-                // Vertical next
-                if (i < projection.length - 1) {
-                    for (let j = 0; j < projection[i].length; j++) {
-                        let point = (i === 0) ? horizon[j] : projection[i][j], nextPoint = projection[i + 1][j]
-
-                        ctx.moveTo(point.x * this._width, point.y * this._height);
-                        ctx.lineTo(nextPoint.x * this._width, nextPoint.y * this._height);
-                    }
-                }
-                ctx.stroke();
             }
         }
     }

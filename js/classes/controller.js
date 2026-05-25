@@ -43,61 +43,33 @@ export default class Controller {
     }
 
     // Slider hooks
-    // 1. Terrain modifier hooks
-    syncGridSize(value = false) {
-        if (value) {
-            this.background.size = value;
-            this.background.resize();
-        }
-        return this.background.size;
-    }
-    syncTerrainVariation(value = false) {
-        if (value) {
-            this.background.terrainVariation = value;
-            this.background.resize();
-        }
-        return this.background.terrainVariation;
-    }
-    syncTerrainElevation(value = false) {
-        if (value) {
-            this.background.elevationLimit = value;
-            this.background.resize();
-        }
-        return this.background.elevationLimit;
+    _makeSyncHook(prop, action = "draw"){
+        return (value = false) => {
+            if (value) {
+                this.background[prop] = value;
+                this.background[action]();
+            }
+            return this.background[prop];
+        };
     }
 
-    // 2. Projection modifier hooks
-    syncHorizontalConvergence(value = false) {
-        if (value) {
-            this.background.hConvergence = value;
-            this.background.draw();
-        }
-        return this.background.hConvergence;
-    }
-    syncVerticalDivergence(value = false) {
-        if (value) {
-            this.background.vDivergence = value;
-            this.background.draw();
-        }
-        return this.background.vDivergence;
-    }
+    // 1. Level of detail: increases grid size
+    syncGridSize = this._makeSyncHook("size", "resize");
+    
+    // 2. Terrain modifier hooks
+    syncTerrainVariation = this._makeSyncHook("terrainVariation");
+    syncTerrainElevation = this._makeSyncHook("elevationLimit");
+    
 
-    // 3. Horizon modifier hooks
-    syncHorizonHeight(value = false) {
-        if (value) {
-            this.background.horizonHeight = value;
-            this.background.draw();
-        }
-        return this.background.horizonHeight;
-    }
-    syncHorizonCurve(value = false) {
-        if (value) {
-            this.background.horizonCurve = value;
-            this.background.draw();
-        }
-        return this.background.horizonCurve;
-    }
+    // 3. Projection modifier hooks
+    syncHorizontalConvergence = this._makeSyncHook("hConvergence");
+    syncVerticalDivergence= this._makeSyncHook("vDivergence");
 
+    // 4. Horizon modifier hooks
+    syncHorizonHeight = this._makeSyncHook("horizonHeight");
+    syncHorizonCurve = this._makeSyncHook("horizonCurve");
+        
+    // Constructor: set event listeners and create sliders
     constructor() {
 
         // Prepare intro dialog
@@ -114,6 +86,11 @@ export default class Controller {
         this.animationToggle.addEventListener("click", () => this.toggleAnimation());
         this.centreAlignToggle.addEventListener("click", () => this.toggleCentreAlign());
 
+        // Space also starts animation
+        window.addEventListener("keydown", (e) => {
+            if (e.code == "Space") this.toggleAnimation();
+        });
+
         // Customizer toggles
         document.getElementById("open-customizer").addEventListener("click", () => this.toggleCustomizer(true));
         document.getElementById("close-customizer").addEventListener("click", () => this.toggleCustomizer(false));
@@ -128,11 +105,11 @@ export default class Controller {
         new Slider(
             "#terrain-variation",
             (val) => this.syncTerrainVariation(val)
-        ).setValues(40);
+        ).setValues(60, 0, 180);
         new Slider(
             "#elevation-limit",
             (val) => this.syncTerrainElevation(val)
-        );
+        ).setValues(60);
 
         // 2. Projection modifier sliders
         new Slider(
@@ -142,13 +119,13 @@ export default class Controller {
         new Slider(
             "#v-divergence",
             (val) => this.syncVerticalDivergence(val)
-        ).setValues(150, 80, 300);
+        ).setValues(40, 0, 100);
 
         // 3. Horizon modifier sliders
         new Slider(
             "#horizon-height",
             (val) => this.syncHorizonHeight(val)
-        ).setValues(70);
+        ).setValues(55);
         new Slider(
             "#horizon-curve",
             (val) => this.syncHorizonCurve(val)

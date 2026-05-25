@@ -33,6 +33,7 @@
         margin-bottom: 1em;
     }
 }
+
 #intro-dialog::backdrop {
     background-color: black;
     opacity: 0.66;
@@ -42,4 +43,14 @@
     position: absolute;
     top: 1em;
     right: 1em;
+}
+
+
+body.opened #intro-dialog {
+    transform: translateY(-20%);
+}
+@media only screen and (min-width: 1100px) {
+    body.opened #intro-dialog {
+        transform: translateX(-30%);
+    }
 }

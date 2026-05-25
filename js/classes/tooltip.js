@@ -16,6 +16,7 @@ export default class Tooltip {
         window.addEventListener("resize", () => this.positionTooltip());
 
         this.icon.addEventListener('mouseenter', () => {
+            this.positionTooltip();
             this.body.style.display = "block";
         });
         this.body.addEventListener('mouseleave', () => {

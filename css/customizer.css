@@ -16,8 +16,8 @@ aside.customization-bar {
     scrollbar-gutter: stable;
 
     &>header {
-        font-size: 0.85;
-        width: 60%;
+        font-size: 3vw;
+        width: 100%;
         margin: auto;
     }
 
@@ -64,14 +64,34 @@ body:not(.opened) #open-mobile-customizer {
 }
 
 body:not(.opened) aside.customization-bar {
+    margin-top: -4px;
     height: calc(100vh + 4px);
-    transform: translateY(-4px);
 
     & .customizer-container {
         overflow-y: scroll;
     }
 }
 
+@media only screen and (min-width: 430px) {
+    .customizer-container {
+
+        &>header {
+            font-size: 3vw;
+            width: 80%;
+        }
+    }
+}
+
+@media only screen and (min-width: 570px) {
+    .customizer-container {
+
+        &>header {
+            width: 60%;
+        }
+    }
+}
+
+/* Start desktop version */
 @media only screen and (min-width: 768px) {
 
     /* Animation on non-mobile */

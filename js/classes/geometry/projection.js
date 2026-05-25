@@ -31,16 +31,16 @@ export default class Projection extends Grid {
     set vDivergence(value) {
         this._vDivergence = value / 100;
     }
-    get vDivergence(){
+    get vDivergence() {
         return this._vDivergence;
     }
-    _vDivergence = 1.5;
+    _vDivergence = 0.5;
 
     // Horizon curve: determines how much curve is visible in the horizon
     set horizonCurve(value) {
         this._horizonCurve = value / 100;
     }
-    get horizonCurve(){
+    get horizonCurve() {
         return this._horizonCurve;
     }
     _horizonCurve = 0.25;
@@ -80,7 +80,7 @@ export default class Projection extends Grid {
                 projectedY -= this._offset / (this.numberOfRows - 1);
 
                 // 3. Make y more pronounced the higher the rowcount (i) becomes    
-                projectedY = Math.pow(Math.max(projectedY, 0), this._vDivergence + correctedBaseY);
+                projectedY *= (this._vDivergence + correctedBaseY);
 
                 // 4. Set horizon curve
                 projectedY += Math.pow(Math.abs(projectFromCenter), 1.5) * this._horizonCurve;
@@ -89,8 +89,9 @@ export default class Projection extends Grid {
                 let finalY = this._horizonHeight + projectedY;
 
                 let currentPoint = this._grid[i][j];
-                finalY += currentPoint.z * correctedBaseY;
-                                
+                let elevationFactor = 0.025; 
+                finalY += currentPoint.z * (elevationFactor + correctedBaseY);
+
                 // RESULT
                 projectedRow.push(new Point(finalX, finalY));
 
@@ -102,7 +103,7 @@ export default class Projection extends Grid {
         }
         return this._projection;
     }
-  
+
     // HORIZON
     // Draw a horizon between first and second row (used in animation)
     _horizon = [];
